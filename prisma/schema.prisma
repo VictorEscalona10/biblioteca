@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int              @id @default(autoincrement())
+  username       String           @unique
+  email          String           @unique
+  password       String
+  dateRegistered DateTime         @default(now())
+  reviews        Review[]
+  savedBooks     SavedBook[]
+}
+
+model Admin {
+  id             Int              @id @default(autoincrement())
+  adminName      String           @unique
+  email          String           @unique
+  password       String
+  dateRegistered DateTime         @default(now())
+  books          Book[]
+}
+
+model Book {
+  id             Int              @id @default(autoincrement())
+  title          String
+  author         String
+  genre          String?
+  publishDate    DateTime?
+  description    String?
+  adminId        Int
+  admin          Admin            @relation(fields: [adminId], references: [id], onDelete: SetNull)
+  reviews        Review[]
+  savedBooks     SavedBook[]
+}
+
+model Review {
+  id             Int              @id @default(autoincrement())
+  userId         Int
+  bookId         Int
+  rating         Int              // Validate range in the application
+  comment        String?
+  dateReviewed   DateTime         @default(now())
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book           Book             @relation(fields: [bookId], references: [id], onDelete: Cascade)
+}
+
+model SavedBook {
+  id             Int              @id @default(autoincrement())
+  userId         Int
+  bookId         Int
+  dateSaved      DateTime         @default(now())
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book           Book             @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, bookId])
+}
