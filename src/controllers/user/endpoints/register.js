@@ -2,24 +2,24 @@ import prisma from "../../../lib/prisma.js";
 import bcrypt from "bcrypt";
 import config from "../../../config/config.js";
 
-const registerAdmin = async (req, res) => {
-    let { adminName } = req.body;
+const registerUser = async (req, res) => {
+    let { name } = req.body;
     const { email, password } = req.body;
 
-    adminName = adminName.toLowerCase();
+    name = name.toLowerCase();
 
     try {
-        const adminExists = await prisma.admin.findUnique({
+        const userExists = await prisma.user.findUnique({
             where: {
                 email: email,
             },
         });
-        if (adminExists) {
-            return res.status(400).json({ message: "El administrador ya existe" });
+        if (userExists) {    
+            return res.status(400).json({ message: "El usuario ya existe" });
         }
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al buscar el administrador" });
+        return res.status(500).json({ message: "Error al buscar el usuario" });
     }
 
     let hashedPassword;
@@ -31,19 +31,19 @@ const registerAdmin = async (req, res) => {
         return res.status(500).json({ message: "Error al hashear la contraseña" });
     }
 
-    try {    
-        const admin = await prisma.admin.create({
+    try {
+        const user = await prisma.user.create({
             data: {
-                adminName: adminName,
+                username: name,
                 email: email,
                 password: hashedPassword,
             },
         });
-        res.status(201).json(admin);
+        res.status(201).json(user);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al crear el administrador" });
+        return res.status(500).json({ message: "Error al crear el usuario" });
     }
-};
+}
 
-export default registerAdmin;
+export default registerUser

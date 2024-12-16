@@ -1,5 +1,5 @@
 const renderLoginAdmin = (req, res) => {
-    res.render("loginAdmin", { title: "Login" }); 
+    res.render("auth/loginAdmin", { title: "Login" }); 
 };
 
 export default renderLoginAdmin;
