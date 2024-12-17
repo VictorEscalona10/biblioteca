@@ -3,10 +3,7 @@ import bcrypt from "bcrypt";
 import config from "../../../config/config.js";
 
 const registerUser = async (req, res) => {
-    let { name } = req.body;
-    const { email, password } = req.body;
-
-    name = name.toLowerCase();
+    const { name, email, password } = req.body;
 
     try {
         const userExists = await prisma.user.findUnique({
