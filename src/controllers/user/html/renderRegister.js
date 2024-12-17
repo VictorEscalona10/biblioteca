@@ -1,5 +1,5 @@
 const renderRegisterUser = (req, res) => {
-    res.render("auth/registerUser", { title: "Register" }); 
+    res.render("auth/registerUser", { message: "" }); 
 };
 
 export default renderRegisterUser;

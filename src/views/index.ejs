@@ -116,11 +116,12 @@
 <body>
     <header>
         <nav>
-            <a href="#registro">Registrarse</a>
-            <a href="#iniciar-sesion">Iniciar Sesión</a>
+            <a href="/user/register">Registrarse</a>
+            <a href="/user/login">Iniciar Sesión</a>
         </nav>
     </header>
     <main>
+        <% if (message) { %><h2 style="color: #e74c3c;"><%= message %></h2><% } %>
         <h1>Biblioteca Virtual</h1>
         <p class="intro">Descubre un mundo de conocimiento a través de nuestra extensa colección de libros digitales. Explora, aprende y disfruta de la lectura en cualquier momento y lugar.</p>
         <section class="featured-books">

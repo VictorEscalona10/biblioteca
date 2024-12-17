@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import config from "../../../config/config.js";
 
 const registerUser = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     try {
         const userExists = await prisma.user.findUnique({
@@ -12,11 +12,11 @@ const registerUser = async (req, res) => {
             },
         });
         if (userExists) {    
-            return res.status(400).json({ message: "El usuario ya existe" });
+            return res.status(400).render("auth/registerUser", { message: "El usuario ya existe" });
         }
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Error al buscar el usuario" });
+        console.error("el usuario ya existe",error);
+        return res.status(500).render("auth/registerUser", { message: "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde." });
     }
 
     let hashedPassword;
@@ -24,22 +24,22 @@ const registerUser = async (req, res) => {
     try {
         hashedPassword = await bcrypt.hash(password, parseInt(config.SALT));
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Error al hashear la contraseña" });
+        console.error("la contrasena no pudo ser hasheada",error);
+        return res.status(500).render("auth/registerUser", { message: "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde." });
     }
 
     try {
         const user = await prisma.user.create({
             data: {
-                username: name,
+                username: username,
                 email: email,
                 password: hashedPassword,
             },
         });
-        res.status(201).json(user);
+        res.status(201).redirect("/user/login");
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Error al crear el usuario" });
+        console.error("error al registrar el usuario",error);
+        return res.status(500).render("auth/registerUser", { message: "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde." });
     }
 }
 

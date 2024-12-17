@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Biblioteca Virtual</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --accent-color: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        main {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .search-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        input, select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .book {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .book:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 250px;
+            background-color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .book h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .book p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .user-profile {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-filter {
+                flex-direction: column;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div>
+                <a href="/">Inicio</a>
+                <a href="/catalog">Catálogo</a>
+            </div>
+            <div>
+                <a href="#perfil">Mi Perfil</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h1>Catálogo de Libros</h1>
+        <section class="search-filter">
+            <input type="text" placeholder="Buscar libros...">
+            <select>
+                <option value="">Filtrar por autor</option>
+                <option value="autor1">Gabriel García Márquez</option>
+                <option value="autor2">J.K. Rowling</option>
+                <option value="autor3">George Orwell</option>
+            </select>
+            <select>
+                <option value="">Filtrar por año</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+            <select>
+                <option value="">Filtrar por género</option>
+                <option value="ficcion">Ficción</option>
+                <option value="no-ficcion">No Ficción</option>
+                <option value="misterio">Misterio</option>
+            </select>
+            <button>Buscar</button>
+        </section>
+        <h2>Libros Destacados</h2>
+        <section class="books-grid">
+            <div class="book">
+                <div class="book-cover"></div>
+                <h3>Cien años de soledad</h3>
+                <p>Autor: Gabriel García Márquez</p>
+                <p>Año: 1967</p>
+                <p>Género: Realismo mágico</p>
+            </div>
+            <div class="book">
+                <div class="book-cover"></div>
+                <h3>1984</h3>
+                <p>Autor: George Orwell</p>
+                <p>Año: 1949</p>
+                <p>Género: Ciencia ficción</p>
+            </div>
+            <div class="book">
+                <div class="book-cover"></div>
+                <h3>Harry Potter y la piedra filosofal</h3>
+                <p>Autor: J.K. Rowling</p>
+                <p>Año: 1997</p>
+                <p>Género: Fantasía</p>
+            </div>
+            <div class="book">
+                <div class="book-cover"></div>
+                <h3>El código Da Vinci</h3>
+                <p>Autor: Dan Brown</p>
+                <p>Año: 2003</p>
+                <p>Género: Misterio</p>
+            </div>
+        </section>
+        <section id="perfil" class="user-profile">
+            <h2>Mi Perfil</h2>
+            <div class="user-info">
+                <div class="user-avatar"></div>
+                <div>
+                    <h3>Nombre de Usuario</h3>
+                    <p>Correo: usuario@ejemplo.com</p>
+                    <p>Libros prestados: 3</p>
+                    <p>Fecha de registro: 01/01/2023</p>
+                </div>
+            </div>
+            <button>Editar Perfil</button>
+        </section>
+    </main>
+</body>
+</html>

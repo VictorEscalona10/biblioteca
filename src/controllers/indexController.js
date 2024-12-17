@@ -1,5 +1,5 @@
 const renderIndex = (req, res) => {
-    res.render("index", { title: "Biblioteca Virtual" });
+    res.render("index", { message: "" });
 }
 
 export default renderIndex;

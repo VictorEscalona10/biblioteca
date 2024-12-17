@@ -13,13 +13,13 @@ const loginUser = async (req, res) => {
         })
 
         if (!user) {
-            return res.status(400).json({ message: "El usuario no existe" });
+            return res.status(400).render("auth/loginUser", { message: "El usuario no existe" });
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
-            return res.status(400).json({ message: "La contraseña es incorrecta" });
+            return res.status(400).render("auth/loginUser", { message: "La contraseña es incorrecta" });
         }
 
         const userToken = jwt.sign(
@@ -35,10 +35,9 @@ const loginUser = async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000,
         });
 
-        res.status(200).json({ message: "Inicio de sesión exitoso" });
+        res.status(200).redirect("/catalog");
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: "Error al iniciar sesión" });
+        return res.status(500).render("auth/loginUser", { message: "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde." });
     }
 }
 

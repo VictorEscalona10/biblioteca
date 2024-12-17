@@ -6,6 +6,7 @@ import __dirname from "./config/path.js";
 import indexRouter from "./routes/indexRoutes.js";
 import adminSesionRouter from "./routes/admin/adminSesionRoutes.js";
 import userSesionRouter from "./routes/user/userSesionRoutes.js";
+import catalogRouter from "./routes/catalog/catalogRoutes.js";
 const app = express();
 
 // Middlewares
@@ -16,8 +17,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 
 // Routes
-app.use("/", indexRouter);
+app.use(indexRouter);
 app.use("/admin", adminSesionRouter);
 app.use("/user", userSesionRouter);
+app.use("/catalog", catalogRouter);
 
 export default app;

@@ -5,7 +5,7 @@ const authenticateTokenUser = (req, res, next) => {
   const token = req.cookies.userToken;
 
   if (!token) {
-    return res.status(401).json({ message: "No se proporcionó un token" });
+    return res.status(401).render("index", { message: "No tienes permiso para acceder" });
   }
 
   try {
@@ -14,7 +14,7 @@ const authenticateTokenUser = (req, res, next) => {
     next();
   } catch (error) {
     console.error(error);
-    return res.status(403).json({ message: "Token no válido" });
+    return res.status(403).render("index", { message: "No tienes permiso para acceder" });
   }
 };
 

@@ -103,6 +103,7 @@
 </head>
 <body>
     <div class="login-container">
+        <% if (message) { %><p style="color: #e74c3c;"><%= message %></p><% } %>
         <h1>Registrarse</h1>
         <form action="/user/register" method="POST">
             <div class="form-group">
