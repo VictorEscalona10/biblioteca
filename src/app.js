@@ -7,6 +7,8 @@ import indexRouter from "./routes/indexRoutes.js";
 import adminSesionRouter from "./routes/admin/adminSesionRoutes.js";
 import userSesionRouter from "./routes/user/userSesionRoutes.js";
 import catalogRouter from "./routes/catalog/catalogRoutes.js";
+import booksRouter from "./routes/books/booksRoutes.js";
+
 const app = express();
 
 // Middlewares
@@ -21,5 +23,6 @@ app.use(indexRouter);
 app.use("/admin", adminSesionRouter);
 app.use("/user", userSesionRouter);
 app.use("/catalog", catalogRouter);
+app.use("/books", booksRouter);
 
 export default app;

@@ -3,14 +3,26 @@ import prisma from "../../../lib/prisma.js";
 const addBook = async (req, res) => {
     const adminId = req.admin.id;
     const { title, author, genre, publishDate, description } = req.body;
+    console.log("formulario", req.body);
 
     try {
+        const existingBook = await prisma.book.findFirst({
+            where: {
+                title: title,
+            },
+
+        })
+
+        if (existingBook) {
+            return res.status(400).render("booksAdmin/addBook", { message: "El libro ya existe" });
+        }
+
         const book = await prisma.book.create({
             data: {
                 title: title,
                 author: author,
                 genre: genre,
-                publishDate: publishDate,
+                publishDate: publishDate ? new Date(publishDate) : null,
                 description: description,
                 admin: { connect: { id: adminId } }
             },
@@ -18,7 +30,7 @@ const addBook = async (req, res) => {
         res.status(201).json(book);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al crear el libro" });
+        res.status(500).render("booksAdmin/addBook", { message: "Error al agregar el libro" });
     }
 };
 
