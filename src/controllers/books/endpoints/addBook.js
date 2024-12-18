@@ -3,7 +3,6 @@ import prisma from "../../../lib/prisma.js";
 const addBook = async (req, res) => {
     const adminId = req.admin.id;
     const { title, author, genre, publishDate, description } = req.body;
-    console.log("formulario", req.body);
 
     try {
         const existingBook = await prisma.book.findFirst({
@@ -27,7 +26,7 @@ const addBook = async (req, res) => {
                 admin: { connect: { id: adminId } }
             },
         });
-        res.status(201).json(book);
+        res.status(201).render("booksAdmin/addBook", { message: "Libro agregado correctamente" });
     } catch (error) {
         console.error(error);
         res.status(500).render("booksAdmin/addBook", { message: "Error al agregar el libro" });

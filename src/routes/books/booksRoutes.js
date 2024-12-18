@@ -5,10 +5,11 @@ import authenticateTokenAdmin from "../../middlewares/verifyTokenAdmin.js";
 const router = Router();
 
 router.get("/add", authenticateTokenAdmin, booksAdmin.renderAddBook);
+router.get("/delete", authenticateTokenAdmin, booksAdmin.renderDeleteBook);
 
 router.post("/add", authenticateTokenAdmin, booksAdmin.addBook);
-router.get("/", authenticateTokenAdmin, booksAdmin.getBooks);
+router.get("/", booksAdmin.getBooks);
 router.put("/update", authenticateTokenAdmin, booksAdmin.updateBook);
-router.delete("/delete", authenticateTokenAdmin, booksAdmin.deleteBook);
+router.post("/delete", authenticateTokenAdmin, booksAdmin.deleteBook).delete("/delete", authenticateTokenAdmin, booksAdmin.deleteBook);
 
 export default router;

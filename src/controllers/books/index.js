@@ -4,13 +4,15 @@ import getBooks from "./endpoints/getBooks.js";
 import updateBook from "./endpoints/updateBook.js";
 
 import renderAddBook from "./html/renderAddBook.js";
+import renderDeleteBook from "./html/renderDeleteBook.js";
 
 const booksAdmin = {
     addBook,
     getBooks,
     updateBook,
     deleteBook,
-    renderAddBook
+    renderAddBook,
+    renderDeleteBook
 };
 
 export default booksAdmin;
