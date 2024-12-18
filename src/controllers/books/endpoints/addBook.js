@@ -2,8 +2,8 @@ import prisma from "../../../lib/prisma.js";
 
 const addBook = async (req, res) => {
     const adminId = req.admin.id;
-    const { title, author, genre, publishDate, description } = req.body;
-
+    const { title, author, genre, year, description } = req.body;
+    const publishDate = new Date(`${year}-01-01`);
     try {
         const existingBook = await prisma.book.findFirst({
             where: {
@@ -16,12 +16,14 @@ const addBook = async (req, res) => {
             return res.status(400).render("booksAdmin/addBook", { message: "El libro ya existe" });
         }
 
+
+
         const book = await prisma.book.create({
             data: {
                 title: title,
                 author: author,
                 genre: genre,
-                publishDate: publishDate ? new Date(publishDate) : null,
+                publishDate: publishDate,
                 description: description,
                 admin: { connect: { id: adminId } }
             },

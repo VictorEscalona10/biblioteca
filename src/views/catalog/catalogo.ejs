@@ -159,6 +159,7 @@
             }
         }
     </style>
+    
 </head>
 <body>
     <header>
@@ -174,68 +175,45 @@
     </header>
     <main>
         <h1>Catálogo de Libros</h1>
-        <section class="search-filter">
+        <form class="search-filter">
             <input type="text" placeholder="Buscar libros...">
-            <select>
-                <option value="">Filtrar por autor</option>
-                <option value="autor1">Gabriel García Márquez</option>
-                <option value="autor2">J.K. Rowling</option>
-                <option value="autor3">George Orwell</option>
-            </select>
-            <select>
-                <option value="">Filtrar por año</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-            </select>
+            <input type="text" placeholder="Buscar autor...">
+            <input type="text" placeholder="Buscar por Año...">
             <select>
                 <option value="">Filtrar por género</option>
                 <option value="ficcion">Ficción</option>
                 <option value="no-ficcion">No Ficción</option>
                 <option value="misterio">Misterio</option>
+                <option value="romance">Romance</option>
+                <option value="aventura">Aventura</option>
+                <option value="terror">Terror</option>
             </select>
-            <button>Buscar</button>
-        </section>
+            <button type="submit">Buscar</button>
+        </form>
         <h2>Libros Destacados</h2>
         <section class="books-grid">
-            <div class="book">
-                <div class="book-cover"></div>
-                <h3>Cien años de soledad</h3>
-                <p>Autor: Gabriel García Márquez</p>
-                <p>Año: 1967</p>
-                <p>Género: Realismo mágico</p>
-            </div>
-            <div class="book">
-                <div class="book-cover"></div>
-                <h3>1984</h3>
-                <p>Autor: George Orwell</p>
-                <p>Año: 1949</p>
-                <p>Género: Ciencia ficción</p>
-            </div>
-            <div class="book">
-                <div class="book-cover"></div>
-                <h3>Harry Potter y la piedra filosofal</h3>
-                <p>Autor: J.K. Rowling</p>
-                <p>Año: 1997</p>
-                <p>Género: Fantasía</p>
-            </div>
-            <div class="book">
-                <div class="book-cover"></div>
-                <h3>El código Da Vinci</h3>
-                <p>Autor: Dan Brown</p>
-                <p>Año: 2003</p>
-                <p>Género: Misterio</p>
-            </div>
+            <% if(ratedBooks.length == 0){%>
+                <h2>No hay libros destacados</h2>
+            <% }else{ %>
+                <% ratedBooks.forEach(function(book) { %>
+                    <div class="book">
+                        <div class="book-cover"></div>
+                        <h3><%= book.title %></h3>
+                        <p>Autor: <%= book.author %></p>
+                        <p>Año: <%= book.publishDate.getFullYear() %></p>
+                        <p>Género: <%= book.genre %></p>
+                    </div>
+                <% }); %>
+            <% } %>
         </section>
         <section id="perfil" class="user-profile">
             <h2>Mi Perfil</h2>
             <div class="user-info">
                 <div class="user-avatar"></div>
                 <div>
-                    <h3>Nombre de Usuario</h3>
-                    <p>Correo: usuario@ejemplo.com</p>
-                    <p>Libros prestados: 3</p>
-                    <p>Fecha de registro: 01/01/2023</p>
+                    <h3>Usuario: <%= user.username %></h3>
+                    <p>Correo: <%= user.email %></p>
+                    <p>Libros guardados: <%= user.savedBooks %></p>
                 </div>
             </div>
             <button>Editar Perfil</button>
