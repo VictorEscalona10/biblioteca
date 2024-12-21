@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda de Libros</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --accent-color: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        main {
+            padding: 3rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .search-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-form label {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .search-form input,
+        .search-form select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .search-results {
+            margin-top: 2rem;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .book {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .book h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .book p {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .book-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/catalog">Catalogo</a>
+        </nav>
+    </header>
+    <main>
+        <h1>Búsqueda de Libros</h1>
+        <div class="search-container">
+            <form class="search-form" action="/books/advanced" method="POST">
+                <label for="search-type">Buscar por:</label>
+                <select id="search-type" name="search-type">
+                    <option value="title">Título</option>
+                    <option value="author">Autor</option>
+                    <option value="year">Año</option>
+                    <option value="genre">Género</option>
+                </select>
+                <label for="searchQuery">Término de búsqueda:</label>
+                <input type="text" id="searchQuery" name="searchQuery" placeholder="Ingrese su búsqueda aquí">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+        <div class="search-results">
+            <h2>Resultados de la búsqueda</h2>
+            <div class="book-list">
+                <% if (books && books.length > 0) { %>
+                    <% books.forEach(book => { %>
+                        <div class="book">
+                            <h3><%= book.title %></h3>
+                            <p><strong>Autor:</strong> <%= book.author %></p>
+                            <p><strong>Año:</strong> <%= book.year %></p>
+                            <p><strong>Género:</strong> <%= book.genre %></p>
+                            <a href="/books/<%= book.id %>">Ver detalles</a>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No se encontraron resultados.</p>
+
+                <% } %>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

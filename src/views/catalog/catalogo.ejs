@@ -167,29 +167,14 @@
             <div>
                 <a href="/">Inicio</a>
                 <a href="/catalog">Catálogo</a>
+                <a href="/books/search">Busqueda Avanzada</a>
             </div>
             <div>
-                <a href="#perfil">Mi Perfil</a>
+                <a href="user/profile">Mi Perfil</a>
             </div>
         </nav>
     </header>
     <main>
-        <h1>Catálogo de Libros</h1>
-        <form class="search-filter">
-            <input type="text" placeholder="Buscar libros...">
-            <input type="text" placeholder="Buscar autor...">
-            <input type="text" placeholder="Buscar por Año...">
-            <select>
-                <option value="">Filtrar por género</option>
-                <option value="ficcion">Ficción</option>
-                <option value="no-ficcion">No Ficción</option>
-                <option value="misterio">Misterio</option>
-                <option value="romance">Romance</option>
-                <option value="aventura">Aventura</option>
-                <option value="terror">Terror</option>
-            </select>
-            <button type="submit">Buscar</button>
-        </form>
         <h2>Libros Destacados</h2>
         <section class="books-grid">
             <% if(ratedBooks.length == 0){%>
@@ -202,6 +187,7 @@
                         <p>Autor: <%= book.author %></p>
                         <p>Año: <%= book.publishDate.getFullYear() %></p>
                         <p>Género: <%= book.genre %></p>
+                        <a href="/books/<%= book.id %>">Ver detalles</a>
                     </div>
                 <% }); %>
             <% } %>
@@ -213,10 +199,8 @@
                 <div>
                     <h3>Usuario: <%= user.username %></h3>
                     <p>Correo: <%= user.email %></p>
-                    <p>Libros guardados: <%= user.savedBooks %></p>
                 </div>
             </div>
-            <button>Editar Perfil</button>
         </section>
     </main>
 </body>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>- Biblioteca Virtual</title>
+    <style>
+      :root {
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --background-color: #ecf0f1;
+        --text-color: #34495e;
+        --accent-color: #e74c3c;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        background-color: var(--background-color);
+        color: var(--text-color);
+      }
+
+      header {
+        background-color: var(--primary-color);
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      nav a:hover {
+        color: var(--secondary-color);
+      }
+
+      main {
+        padding: 2rem 1rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .book-detail {
+        background-color: white;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+      }
+
+      .book-info {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .book-cover {
+        width: 300px;
+        height: 450px;
+        background-color: var(--secondary-color);
+        border-radius: 4px;
+        background-image: url("/placeholder.svg?height=450&width=300");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .book-text h1 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .book-text p {
+        margin-bottom: 0.5rem;
+      }
+
+      .book-description {
+        margin-top: 1rem;
+      }
+
+      .rating-comments {
+        background-color: white;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .rating {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .star {
+        color: #f1c40f;
+        cursor: pointer;
+      }
+
+      .comment-form textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      .comments-list {
+        margin-top: 2rem;
+      }
+
+      .comment {
+        border-bottom: 1px solid #ddd;
+        padding: 1rem 0;
+      }
+
+      .comment:last-child {
+        border-bottom: none;
+      }
+
+      .comment-author {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .book-info {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .book-cover {
+          width: 100%;
+          max-width: 300px;
+          height: 450px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .book-cover {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div>
+          <a href="/">Inicio</a>
+          <a href="/catalog">Catálogo</a>
+        </div>
+        <div>
+          <a href="user/profile">Mi Perfil</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="book-detail">
+        <div class="book-info">
+          <div class="book-cover"></div>
+          <div class="book-text">
+            <h1><%= book.title%></h1>
+            <p><strong>Autor:</strong> <%= book.author%></p>
+            <p><strong>Año:</strong> <%= book.publishDate %></p>
+            <p><strong>Género:</strong> <%= book.genre%></p>
+            <div class="book-description">
+              <h2>Descripción</h2>
+              <p><%= book.description%></p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="rating-comments">
+        <form action="/book/<%= book.id %>/rate" method="POST">
+          <div class="rating">
+            <input type="radio" id="star5" name="rating" value="5" /><label
+              for="star5"
+              title="5 estrellas"
+              >★</label
+            >
+            <input type="radio" id="star4" name="rating" value="4" /><label
+              for="star4"
+              title="4 estrellas"
+              >★</label
+            >
+            <input type="radio" id="star3" name="rating" value="3" /><label
+              for="star3"
+              title="3 estrellas"
+              >★</label
+            >
+            <input type="radio" id="star2" name="rating" value="2" /><label
+              for="star2"
+              title="2 estrellas"
+              >★</label
+            >
+            <input type="radio" id="star1" name="rating" value="1" /><label
+              for="star1"
+              title="1 estrella"
+              >★</label
+            >
+          </div>
+          <div>
+            <label for="comment">Comentario:</label>
+            <textarea
+              id="comment"
+              name="comment"
+              rows="4"
+              cols="50"
+              placeholder="Escribe tu comentario aquí"
+            ></textarea>
+          </div>
+          <button type="submit">Enviar Valoración</button>
+        </form>
+        <div class="comments-list">
+          <div class="comment">
+            <p class="comment-author">María Rodríguez</p>
+            <p>
+              Una obra maestra de la literatura. La forma en que García Márquez
+              entrelaza la realidad con la fantasía es simplemente asombrosa.
+              Definitivamente un libro que hay que leer más de una vez para
+              apreciar todos sus matices.
+            </p>
+          </div>
+          <div class="comment">
+            <p class="comment-author">Juan Pérez</p>
+            <p>
+              Al principio me costó entrar en la historia, pero una vez que me
+              sumergí en el mundo de Macondo, no pude dejar de leer. La prosa es
+              hermosa y los personajes son inolvidables.
+            </p>
+          </div>
+          <div class="comment">
+            <p class="comment-author">Ana López</p>
+            <p>
+              Este libro es una experiencia única. La forma en que García
+              Márquez juega con el tiempo y la realidad es fascinante. Sin duda,
+              una lectura que te hace reflexionar sobre la vida y la historia.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

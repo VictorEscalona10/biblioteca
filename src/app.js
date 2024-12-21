@@ -25,6 +25,7 @@ app.use("/user", userSesionRouter);
 app.use("/catalog", catalogRouter);
 app.use("/books", booksRouter);
 
+
 // Middleware para manejar el error 404 si no se encuentra la ruta
 app.use((req, res, next) => {
     res.status(404).render("index", { message: "Ruta no encontrada" });
