@@ -1,9 +1,9 @@
 import { Router } from "express";
-import renderCatalog from "../../controllers/catalog/html/renderCatalog.js";
+import catalogSesion from "../../controllers/catalog/index.js";
 import authenticateTokenUser from "../../middlewares/verifyTokenUser.js";
 
 const router = Router();
 
-router.get("/", authenticateTokenUser,renderCatalog);
+router.get("/", authenticateTokenUser, catalogSesion.renderCatalog);
 
 export default router

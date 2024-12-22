@@ -1,4 +1,5 @@
 import prisma from "../../../lib/prisma.js";
+import booksArray from "./booksArray.js";
 
 const deleteBook = async (req, res) => {
     const { id } = req.body;
@@ -7,23 +8,28 @@ const deleteBook = async (req, res) => {
 
         const bookExists = await prisma.book.findUnique({
             where: {
-                id: id,
+                id: parseInt(id),
             },
         })
 
         if (!bookExists) {
-            return res.status(400).json({ message: "El libro no existe" });
+            let books = await booksArray();
+            return res.status(400).render("booksAdmin/deleteBook", { message: "El libro no existe", books: books });
         }
 
         const deletedBook = await prisma.book.delete({
             where: {
-                id: id,
+                id: parseInt(id),
             },
         });
-        res.status(200).json(deletedBook);
+
+        let books = await booksArray();
+
+        res.status(200).render("booksAdmin/deleteBook", { message: "Libro eliminado correctamente", books: books });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al eliminar el libro" });
+        let books = await booksArray();
+        res.status(500).render("booksAdmin/deleteBook", { message: "Error al eliminar el libro", books: books });
     }
 };
 

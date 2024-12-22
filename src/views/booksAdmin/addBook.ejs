@@ -24,12 +24,36 @@
             line-height: 1.6;
             background-color: var(--background-color);
             color: var(--text-color);
-            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
         }
 
         .container {
             max-width: 600px;
-            margin: 0 auto;
+            margin: 20px auto;
             background-color: white;
             padding: 2rem;
             border-radius: 8px;
@@ -90,15 +114,23 @@
     </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/books/add">Agregar Libro</a>
+            <a href="/books/delete">Borrar Libro</a>
+        </nav>
+    </header>
     <div class="container">
-      <% if (message) { %><h2 style="color: #e74c3c;"><%= message %></h2><% } %>
+        <% if (message) { %><h2 style="color: #e74c3c;"><%= message %></h2><% } %>
         <h1>Agregar Libro</h1>
         <form action="/books/add" method="POST">
             <input type="text" name="title" placeholder="Título" required>
             <input type="text" name="author" placeholder="Autor" required>
             <input type="text" name="genre" placeholder="Género" required>
             <textarea name="description" placeholder="Descripción"></textarea>
-            <input type="date" name="publishDate" placeholder="Fecha de Publicación" required>
+            <input type="text" name="year" placeholder="Año">
+            <input type="text" name="link" placeholder="Enlace">
             <button type="submit">Agregar Libro</button>
         </form>
     </div>

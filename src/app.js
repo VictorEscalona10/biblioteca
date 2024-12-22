@@ -8,6 +8,7 @@ import adminSesionRouter from "./routes/admin/adminSesionRoutes.js";
 import userSesionRouter from "./routes/user/userSesionRoutes.js";
 import catalogRouter from "./routes/catalog/catalogRoutes.js";
 import booksRouter from "./routes/books/booksRoutes.js";
+import reviewRouter from "./routes/review/reviewsRouter.js";
 
 const app = express();
 
@@ -24,5 +25,12 @@ app.use("/admin", adminSesionRouter);
 app.use("/user", userSesionRouter);
 app.use("/catalog", catalogRouter);
 app.use("/books", booksRouter);
+app.use("/review", reviewRouter);
+
+
+// Middleware para manejar el error 404 si no se encuentra la ruta
+app.use((req, res, next) => {
+    res.status(404).render("index", { message: "Ruta no encontrada" });
+})
 
 export default app;
