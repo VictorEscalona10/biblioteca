@@ -15,5 +15,6 @@ router.get("/", booksAdmin.getBooks);
 router.post("/advanced", booksAdmin.getBooksAdvanced);
 router.put("/update", authenticateTokenAdmin, booksAdmin.updateBook);
 router.post("/delete", authenticateTokenAdmin, booksAdmin.deleteBook).delete("/delete", authenticateTokenAdmin, booksAdmin.deleteBook);
+router.post("/addUser/:bookId", authenticateTokenUser, booksAdmin.addBookUser);
 
 export default router;

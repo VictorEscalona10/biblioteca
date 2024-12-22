@@ -159,6 +159,113 @@
         margin-bottom: 0.5rem;
       }
 
+      .rating-comments {
+        background-color: white;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .review-form {
+        margin-bottom: 2rem;
+      }
+
+      .rating {
+        display: inline-block;
+        direction: rtl;
+        unicode-bidi: bidi-override;
+      }
+
+      .rating input {
+        display: none;
+      }
+
+      .rating label {
+        display: inline-block;
+        padding: 0 0.1em;
+        font-size: 2rem;
+        color: #ddd;
+        cursor: pointer;
+      }
+
+      .rating label:hover,
+      .rating label:hover ~ label,
+      .rating input:checked ~ label {
+        color: #f1c40f;
+      }
+
+      .comment-input {
+        margin-top: 1rem;
+      }
+
+      .comment-input label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+
+      .comment-input textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        resize: vertical;
+      }
+
+      button[type="submit"] {
+        margin-top: 1rem;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 1rem;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #2980b9;
+      }
+
+      .comments-list {
+        margin-top: 2rem;
+      }
+
+      .comment {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .comment-author {
+        font-weight: bold;
+        color: var(--secondary-color);
+      }
+
+      .comment-rating .star {
+        font-size: 1rem;
+        color: #ddd;
+      }
+
+      .comment-rating .star.filled {
+        color: #f1c40f;
+      }
+
+      .comment-text {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
       @media (max-width: 768px) {
         .book-info {
           flex-direction: column;
@@ -204,11 +311,19 @@
               <h2>Descripción</h2>
               <p><%= book.description%></p>
             </div>
+            <form action="/books/addUser/<%= book.id%>" method="POST">
+              <button id="postButton" type="submit">Agregar a biblioteca</button>
+            </form>
           </div>
         </div>
       </section>
       <section class="rating-comments">
-        <form action="/book/<%= book.id %>/rate" method="POST">
+        <h2>Valoración y Comentarios</h2>
+        <form
+          action="/review/<%= book.id %>/rate"
+          method="POST"
+          class="review-form"
+        >
           <div class="rating">
             <input type="radio" id="star5" name="rating" value="5" /><label
               for="star5"
@@ -236,46 +351,27 @@
               >★</label
             >
           </div>
-          <div>
+          <div class="comment-input">
             <label for="comment">Comentario:</label>
             <textarea
               id="comment"
               name="comment"
               rows="4"
-              cols="50"
               placeholder="Escribe tu comentario aquí"
             ></textarea>
           </div>
           <button type="submit">Enviar Valoración</button>
         </form>
         <div class="comments-list">
+          <% reviews.forEach(function(review) { %>
           <div class="comment">
-            <p class="comment-author">María Rodríguez</p>
-            <p>
-              Una obra maestra de la literatura. La forma en que García Márquez
-              entrelaza la realidad con la fantasía es simplemente asombrosa.
-              Definitivamente un libro que hay que leer más de una vez para
-              apreciar todos sus matices.
-            </p>
+            <p class="comment-author"><%= review.user.username %></p>
+            <p><%= review.comment %></p>
           </div>
-          <div class="comment">
-            <p class="comment-author">Juan Pérez</p>
-            <p>
-              Al principio me costó entrar en la historia, pero una vez que me
-              sumergí en el mundo de Macondo, no pude dejar de leer. La prosa es
-              hermosa y los personajes son inolvidables.
-            </p>
-          </div>
-          <div class="comment">
-            <p class="comment-author">Ana López</p>
-            <p>
-              Este libro es una experiencia única. La forma en que García
-              Márquez juega con el tiempo y la realidad es fascinante. Sin duda,
-              una lectura que te hace reflexionar sobre la vida y la historia.
-            </p>
-          </div>
+          <% }); %>
         </div>
       </section>
     </main>
   </body>
 </html>
+<

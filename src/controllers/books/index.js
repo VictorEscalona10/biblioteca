@@ -4,6 +4,7 @@ import getBooks from "./endpoints/getBooks.js";
 import updateBook from "./endpoints/updateBook.js";
 import getBooksAdvanced from "./endpoints/getBooksAdvanced.js";
 import getBookForID from "./endpoints/getBookForID.js";
+import addBookUser from "./endpoints/addBookUser.js";
 
 import renderAddBook from "./html/renderAddBook.js";
 import renderDeleteBook from "./html/renderDeleteBook.js";
@@ -17,6 +18,7 @@ const booksAdmin = {
     deleteBook,
     getBooksAdvanced,
     getBookForID,
+    addBookUser,
     renderAddBook,
     renderDeleteBook,
     renderBookSearch,
