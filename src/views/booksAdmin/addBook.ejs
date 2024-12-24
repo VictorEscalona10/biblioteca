@@ -127,10 +127,20 @@
         <form action="/books/add" method="POST">
             <input type="text" name="title" placeholder="Título" required>
             <input type="text" name="author" placeholder="Autor" required>
-            <input type="text" name="genre" placeholder="Género" required>
-            <textarea name="description" placeholder="Descripción"></textarea>
-            <input type="text" name="year" placeholder="Año">
-            <input type="text" name="link" placeholder="Enlace">
+            <label for="genre">Genero</label>
+            <select id="search-type" name="genre" required>
+                <option value="ficción">Ficción</option>
+                <option value="no ficción">No Ficción</option>
+                <option value="ciencia ficción">Ciencia Ficción</option>
+                <option value="fantasía">Fantasía</option>
+                <option value="misterio">Misterio</option>
+                <option value="terror">Terror</option>
+                <option value="romance">Romance</option>
+                <option value="aventura">Aventura</option>
+            </select>
+            <textarea name="description" placeholder="Descripción" required></textarea>
+            <input type="text" name="year" placeholder="Año" required>
+            <input type="text" name="link" placeholder="Enlace" required>
             <button type="submit">Agregar Libro</button>
         </form>
     </div>
