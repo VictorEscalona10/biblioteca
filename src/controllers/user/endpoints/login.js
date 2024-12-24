@@ -37,7 +37,7 @@ const loginUser = async (req, res) => {
 
         res.status(200).redirect("/catalog");
     } catch (error) {
-        return res.status(500).render("auth/loginUser", { message: `Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde. ${error}` });
+        return res.status(500).render("auth/loginUser", { message: `Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.` });
     }
 }
 

@@ -9,6 +9,7 @@ import userSesionRouter from "./routes/user/userSesionRoutes.js";
 import catalogRouter from "./routes/catalog/catalogRoutes.js";
 import booksRouter from "./routes/books/booksRoutes.js";
 import reviewRouter from "./routes/review/reviewsRouter.js";
+import logoutRouter from "./routes/logout/logoutRoutes.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/user", userSesionRouter);
 app.use("/catalog", catalogRouter);
 app.use("/books", booksRouter);
 app.use("/review", reviewRouter);
+app.use("/logout", logoutRouter);
 
 
 // Middleware para manejar el error 404 si no se encuentra la ruta
