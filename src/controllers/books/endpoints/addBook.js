@@ -3,7 +3,7 @@ import prisma from "../../../lib/prisma.js";
 const addBook = async (req, res) => {
     const adminId = req.admin.id;
     const { title, author, genre, year, link, description } = req.body;
-    const publishDate = new Date(`${year}-01-01`);
+    const publishDate = new Date(year);
     try {
         const existingBook = await prisma.book.findFirst({
             where: {
