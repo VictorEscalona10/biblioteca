@@ -32,7 +32,7 @@ const addBook = async (req, res) => {
         res.status(201).render("booksAdmin/addBook", { message: "Libro agregado correctamente" });
     } catch (error) {
         console.error(error);
-        res.status(500).render("booksAdmin/addBook", { message: "Error al agregar el libro" });
+        res.status(500).render("booksAdmin/addBook", { message: `Error al agregar el libro ${error}` });
     }
 };
 
