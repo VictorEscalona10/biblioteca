@@ -23,10 +23,10 @@ const addReview = async (req, res) => {
 
 
         const newExistingReviews = await getReviews(req, res, userId);
-        res.status(200).render('review/libro', { message: 'Reseña agregada correctamente', reviews: reviewExisting, user: userId, book: book });
+        res.status(200).redirect(`/books/${bookId}`);
     } catch (error) {
         console.error('Error al agregar la reseña:', error);
-        res.status(500).render('review/libro', { message: 'Error al agregar la reseña', reviews: reviewExisting, user: userId, book: book });
+        res.status(500).redirect(`/books/${bookId}`);
     }
 }
 
