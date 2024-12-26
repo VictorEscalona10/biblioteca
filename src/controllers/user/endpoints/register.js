@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import config from "../../../config/config.js";
 
 const registerUser = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, repeat_password } = req.body;
 
     try {
         const userExists = await prisma.user.findUnique({
@@ -22,6 +22,10 @@ const registerUser = async (req, res) => {
     let hashedPassword;
 
     try {
+        if (password !== repeat_password) {
+            return res.status(400).render("auth/registerUser", { message: "Las contraseñas no coinciden" });
+        }
+
         hashedPassword = await bcrypt.hash(password, parseInt(config.SALT));
     } catch (error) {
         console.error("la contrasena no pudo ser hasheada",error);
